@@ -1,8 +1,8 @@
 [![ADC121C021-TA12-200](ADC121C021_I2CS_TA12-200.png)](https://www.controleverything.com/products)
 # ADC121C021-TA12-200
-ADC121C021-TA12-200 Analog to Digital Converter.
+ADC121C021-TA12-200 Current Monitor.
 
-The ADC121C021-TA12-200 is a 1-Channel Analog to Digital Converter.
+The ADC121C021-TA12-200 is a 1-channel current monitoring sensoc.
 
 This Device is available from ControlEverything.com [SKU: ADC121C021_I2CS_TA12-200]
 
@@ -62,4 +62,4 @@ Verify and flash the code on your Photon. Code output is shown in logs at dashbo
 
 https://dashboard.particle.io/user/logs
 
-#####The code output is digital value of an analog input.
+#####The code output is the instantaneous current value in ampere.

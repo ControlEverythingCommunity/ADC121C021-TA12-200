@@ -24,14 +24,14 @@ public class ADC121C021_TA12_200
 		Thread.sleep(500);
 
 		// Read 2 bytes of data
-		// raw_adc msb, raw_adc lsb
+		// current msb, current lsb
 		byte[] data = new byte[2];
-		device.read(data, 0, 2);
+		device.read(0x00, data, 0, 2);
 
 		// Convert the data to 12-bits
-		int raw_adc = ((data[0] & 0x0F) * 256 + (data[1] & 0xFF));
+		double current = (((data[0] & 0x0F) * 256) + (data[1] & 0xFF)) / 1000.0;
 
 		// Output data to screen
-		System.out.printf("Digital value of analog input : %d %n", raw_adc);
+		System.out.printf("Instantaneous Current value : %.2f %n", current);
 	}
 }

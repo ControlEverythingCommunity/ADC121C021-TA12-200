@@ -9,47 +9,55 @@
 // ADC121C021_TA12_200 I2C address is 0x50(80)
 #define Addr 0x50
 
-int raw_adc = 0;
+float current = 0.0;
 void setup()
 {
   // Set variable
   Particle.variable("i2cdevice", "ADC121C021");
-  Particle.variable("rawADC", raw_adc);
-    
+  Particle.variable("current", current);
+
   // Initialise I2C communication as MASTER
   Wire.begin();
   // Initialise serial communication, set baud rate = 9600
   Serial.begin(9600);
+
+  // Start I2C Transmission
+  Wire.beginTransmission(Addr);
+  // Select configuration register
+  Wire.write(0x02);
+  // Automatic conversion mode enabled
+  Wire.write(0x20);
+  // Stop I2C transmission
+  Wire.endTransmission();
   delay(300);
 }
 
-void loop() 
+void loop()
 {
   unsigned int data[2];
-  
+
   // Start I2C transmission
-  Wire.beginTransmission(Addr); 
-  // Calling conversion result register, 0x00(0)
+  Wire.beginTransmission(Addr);
+  // Select data register
   Wire.write(0x00);
   // Stop I2C transmission
   Wire.endTransmission();
-  
-  // Request 2 bytes
+
+  // Request 2 bytes of data
   Wire.requestFrom(Addr, 2);
-  
+
   // Read 2 bytes of data
-  // raw_adc msb, raw_adc lsb
-  if(Wire.available() == 2)
-  {  
-      data[0] = Wire.read();
-      data[1] = Wire.read();
+  // current msb, current lsb
+  if (Wire.available() == 2)
+  {
+    data[0] = Wire.read();
+    data[1] = Wire.read();
   }
-  delay(300);
-    
-  // Convert the data to 12 bits
-  raw_adc = ((data[0] * 256) + data[1]) & 0x0FFF;
+
+  // Convert the data to 12-bits
+  current = (((data[0] & 0x0F) * 256) + data[1]) / 1000.0;
 
   // Output data to dashboard
-  Particle.publish("Digital value of analog input: ", String(raw_adc));
-
+  Particle.publish("Instantaneous Current value : ", String(current) + " A");
+  delay(300);
 }
