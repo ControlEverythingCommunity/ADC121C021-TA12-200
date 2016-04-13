@@ -2,7 +2,7 @@
 # ADC121C021-TA12-200
 ADC121C021-TA12-200 Current Monitor.
 
-The ADC121C021-TA12-200 is a 1-channel current monitoring sensoc.
+The ADC121C021-TA12-200 is a 1-channel current monitoring sensor.
 
 This Device is available from ControlEverything.com [SKU: ADC121C021_I2CS_TA12-200]
 
