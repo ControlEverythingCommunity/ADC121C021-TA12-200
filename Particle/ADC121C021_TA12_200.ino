@@ -9,7 +9,7 @@
 // ADC121C021_TA12_200 I2C address is 0x50(80)
 #define Addr 0x50
 
-float current = 0.0;
+double current = 0.0;
 void setup()
 {
   // Set variable
@@ -59,5 +59,5 @@ void loop()
 
   // Output data to dashboard
   Particle.publish("Instantaneous Current value : ", String(current) + " A");
-  delay(300);
+  delay(1000);
 }
